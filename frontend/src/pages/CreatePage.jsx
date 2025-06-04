@@ -1,5 +1,6 @@
 import { Box, Button, Heading, Input, useColorMode, useColorModeValue, VStack, Container, Flex } from '@chakra-ui/react';
 import React, { useState } from 'react'
+import { useProductStore } from '../store/product';
 
 const CreatePage = () => {
  
@@ -11,8 +12,11 @@ const CreatePage = () => {
     category:""
   });
 
-  const handleAddProduct = () =>{
-    console.log(newProduct);
+  const {createProduct} = useProductStore()
+  const handleAddProduct = async() =>{
+     const {success,message} = await createProduct(newProduct)
+     console.log("Success:",success)
+     console.log("Message:",message)
   }
  
   return (

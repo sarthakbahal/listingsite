@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom'
 import { FaRegPlusSquare } from "react-icons/fa";
 import { IoMoon } from "react-icons/io5";
 import { LuSun } from "react-icons/lu";
+import { useProductStore } from '../store/product';
 
 const Navbar = () => {
     const { colorMode, toggleColorMode } = useColorMode();
     const bgColor = useColorModeValue('white', 'gray.800');
     const textColor = useColorModeValue('black', 'white');
+    const {products} = useProductStore(); 
 
     return (
         <Container bg={useColorModeValue("gray.100", "gray.900")} color={textColor} maxW={"1140px"} px={4}>
