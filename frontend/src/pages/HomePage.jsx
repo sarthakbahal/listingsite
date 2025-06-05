@@ -3,6 +3,7 @@ import { Box, Container, useColorModeValue, VStack, Text, textDecoration } from 
 import { Link } from 'react-router-dom'
 import { SimpleGrid } from '@chakra-ui/react'
 import { useProductStore } from '../store/product'
+import {ProductCard} from '../components/ProductCard'
 
 const HomePage = () => {
   const bgColor = useColorModeValue('white', 'gray.800')
