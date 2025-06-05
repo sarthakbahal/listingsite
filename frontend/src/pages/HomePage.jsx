@@ -3,7 +3,7 @@ import { Box, Container, useColorModeValue, VStack, Text, textDecoration } from 
 import { Link } from 'react-router-dom'
 import { SimpleGrid } from '@chakra-ui/react'
 import { useProductStore } from '../store/product'
-import {ProductCard} from '../components/ProductCard'
+import ProductCard from '../components/ProductCard'
 
 const HomePage = () => {
   const bgColor = useColorModeValue('white', 'gray.800')
@@ -40,12 +40,13 @@ const HomePage = () => {
           spacing='25px'
           w={"full"}
         >
-          {products.map((product) =>{
+          {products.map((product) => (
             <ProductCard key={product._id} product={product} />
-          })}
+          ))}
         </SimpleGrid>
 
-        <Text fontsize='xl' fontWeight='bold' textAlign={"center"} color='gray.400'>
+        {products.length === 0 && (
+          <Text fontsize='xl' fontWeight='bold' textAlign={"center"} color='gray.400'>
           No Products Found ☹️ {" "}
           <Link to={"/create"}>
             <Text as='span' color='blue.400' _hover={{ textDecoration: "underline" }}>
@@ -55,6 +56,7 @@ const HomePage = () => {
           </Link>
 
         </Text>
+        )}
 
 
 
