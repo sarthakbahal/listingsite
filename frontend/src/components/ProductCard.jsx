@@ -1,5 +1,23 @@
-import React from 'react'
-import { Box, Heading, IconButton, Image, Text, useColorModeValue, HStack, useToast, useDisclosure, Modal, ModalHeader, ModalBody, ModalContent, ModalOverlay, ModalCloseButton, VStack } from '@chakra-ui/react'
+import {React , useState} from 'react'
+import { Box, 
+    Heading, 
+    IconButton, 
+    Image, 
+    Text, 
+    useColorModeValue, 
+    HStack, 
+    useToast, 
+    useDisclosure, 
+    VStack ,
+    Input,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    Button } from '@chakra-ui/react'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { useProductStore } from '../store/product'
 
@@ -36,9 +54,9 @@ const ProductCard = ({ product }) => {
         }
     }
 
-    const {updatedProduct} = useProductStore();
+    const [updatedProduct , setupdatedProduct] = useState(product);
 
-    
+
 
     return (
         <Box
@@ -60,8 +78,12 @@ const ProductCard = ({ product }) => {
                     Rs. {product.price} /-
                 </Text>
 
+                <Text fontWeight='semibold' fontSize='lg' color={textColor} mb={4}>
+                    {product.description}
+                </Text>
+
                 <HStack spacing={2}>
-                    <IconButton icon={<EditIcon />} colorScheme='blue' />
+                    <IconButton icon={<EditIcon />} onClick={onOpen} colorScheme='blue' />
                     <IconButton icon={<DeleteIcon />} onClick={() => handleDeleteProduct(product._id)} colorScheme='red' />
                 </HStack>
 
@@ -76,32 +98,32 @@ const ProductCard = ({ product }) => {
                                     placeholder='Product Name'
                                     name='name'
                                     value={updatedProduct.name}
-                                    onChange={(e) => setupdatedProduct({ ...updatedProduct, name: e.target.value })}
+                                    
                                 />
                                 <Input
                                     placeholder='Product Price'
                                     name='price'
                                     type='number'
                                     value={updatedProduct.price}
-                                    onChange={(e) => setupdatedProduct({ ...updatedProduct, price: e.target.value })}
+                                    
                                 />
                                 <Input
                                     placeholder='Product Description'
                                     name='description'
                                     value={updatedProduct.description}
-                                    onChange={(e) => setupdatedProduct({ ...updatedProduct, description: e.target.value })}
+                                    
                                 />
                                 <Input
                                     placeholder='Product Image URL'
                                     name='image'
                                     value={updatedProduct.image}
-                                    onChange={(e) => setupdatedProduct({ ...updatedProduct, image: e.target.value })}
+                                    
                                 />
                                 <Input
                                     placeholder='Product Category'
                                     name='category'
                                     value={updatedProduct.category}
-                                    onChange={(e) => setupdatedProduct({ ...updatedProduct, category: e.target.value })}
+                                   
                                 />
                             </VStack>
                         </ModalBody>
