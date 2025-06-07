@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "SET NODE_ENV=development & nodemon backend/server.js",
     "build": "npm install && cd ./frontend && npm install && npm run build && cd ..",
-    "start": "SET NODE_ENV=production & node backend/server.js",
-    "vercel-build": "cd frontend && npm install && npm run build"
+    "start": "SET NODE_ENV=production & node backend/server.js"
+    
   },
   "repository": {
     "type": "git",
