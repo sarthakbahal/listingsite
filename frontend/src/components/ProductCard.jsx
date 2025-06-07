@@ -54,7 +54,47 @@ const ProductCard = ({ product }) => {
         }
     }
 
-    const [updatedProduct , setupdatedProduct] = useState(product);
+    const [updatedProduct, setupdatedProduct] = useState(product);
+    const [isUpdating, setIsUpdating] = useState(false);
+    const {updateProduct} = useProductStore();
+
+    const handleUpdatedProduct = async (pid, updatedProduct) => {
+        try {
+            setIsUpdating(true);
+            const { success, message } = await updateProduct(pid, updatedProduct);
+            
+            if (!success) {
+                toast({
+                    title: "Error",
+                    description: message,
+                    status: "error",
+                    duration: 6000,
+                    isClosable: true
+                });
+                return;
+            }
+            
+            toast({
+                title: "Success",
+                description: "Product updated successfully",
+                status: "success",
+                duration: 3000,
+                isClosable: true
+            });
+            
+            onClose();
+        } catch (error) {
+            toast({
+                title: "Error",
+                description: "Failed to update product. Please try again.",
+                status: "error",
+                duration: 6000,
+                isClosable: true
+            });
+        } finally {
+            setIsUpdating(false);
+        }
+    }
 
 
 
@@ -98,6 +138,7 @@ const ProductCard = ({ product }) => {
                                     placeholder='Product Name'
                                     name='name'
                                     value={updatedProduct.name}
+                                    onChange={(e) => setupdatedProduct({ ...updatedProduct, name: e.target.value })}
                                     
                                 />
                                 <Input
@@ -105,34 +146,46 @@ const ProductCard = ({ product }) => {
                                     name='price'
                                     type='number'
                                     value={updatedProduct.price}
+                                    onChange={(e) => setupdatedProduct({ ...updatedProduct, price: e.target.value })}
                                     
                                 />
                                 <Input
                                     placeholder='Product Description'
                                     name='description'
                                     value={updatedProduct.description}
+                                    onChange={(e) => setupdatedProduct({ ...updatedProduct, description: e.target.value })}
+
                                     
                                 />
                                 <Input
                                     placeholder='Product Image URL'
                                     name='image'
                                     value={updatedProduct.image}
+                                    onChange={(e) => setupdatedProduct({ ...updatedProduct, image: e.target.value })}
                                     
                                 />
                                 <Input
                                     placeholder='Product Category'
                                     name='category'
                                     value={updatedProduct.category}
+                                    onChange={(e) => setupdatedProduct({ ...updatedProduct, category: e.target.value })}
+                                    
                                    
                                 />
                             </VStack>
                         </ModalBody>
 
                         <ModalFooter>
-                            <Button colorScheme='blue' mr={3} onClick={onClose}>
-                                Close
+                            <Button 
+                                colorScheme='blue' 
+                                mr={3} 
+                                onClick={() => handleUpdatedProduct(product._id, updatedProduct)}
+                                isLoading={isUpdating}
+                                loadingText="Updating"
+                            >
+                                Update
                             </Button>
-                            <Button variant='ghost'>Secondary Action</Button>
+                            <Button variant='ghost' onClick={onClose} isDisabled={isUpdating}>Close</Button>
                         </ModalFooter>
                     </ModalContent>
 
